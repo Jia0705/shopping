@@ -22,8 +22,8 @@ export default function App() {
   }
 
   function butt() {
-    setSales(function (abc) {
-      return !abc;
+    setSales(function (sales) {
+      return !sales;
     });
   }
 
@@ -34,11 +34,16 @@ export default function App() {
         {sales ? "Show All Items" : "Show Sale Items Only"}
       </button>
       <div className="col">
-        {Items.map(item => {
+        {Items.map((item) => {
           return (
             <div className="p-4 d-flex justify-content-between">
               <b>
-                {item.name} {item.onSale ? <b className="bg-danger text-white p-1">On Sale!</b> : ''}
+                {item.name}{" "}
+                {item.onSale ? (
+                  <b className="bg-danger text-white p-1">On Sale!</b>
+                ) : (
+                  ""
+                )}
               </b>
               <b>${item.price}</b>
             </div>
