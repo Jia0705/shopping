@@ -11,24 +11,45 @@ const items = [
 
 export default function App() {
   const [sales, setSales] = useState(0);
-  const Items = sales ? items.filter(item => item.onSale) : items;
-  const butt= () => {
-    setSales(!sales);
-  };
+
+  let Items;
+  if (sales) {
+    Items = items.filter(function (item) {
+      return item.onSale === true;
+    });
+  } else {
+    Items = items;
+  }
+
+  function butt() {
+    setSales(function (sales) {
+      return !sales;
+    });
+  }
+
   return (
     <div>
-      <h1 className="p-2">Shopping Cart</h1>
-      <button className= "btn btn-primary p-2 m-2" onClick={butt}>
-          {sales ? "Show All Items" : "Show Sale Items Only"}
-        </button>
+      <h1 className="m-3">Shopping Cart</h1>
+      <button className="btn btn-primary p-2 m-3" onClick={butt}>
+        {sales ? "Show All Items" : "Show Sale Items Only"}
+      </button>
       <div className="col">
-          {Items.map(item => (
-            <div className ="p-3">
-              {item.name} {item.onSale && <b className="bg-danger text-white p-1">On Sale!</b>} - ${item.price}
+        {Items.map((item) => {
+          return (
+            <div className="p-4 d-flex justify-content-between">
+              <b>
+                {item.name}{" "}
+                {item.onSale ? (
+                  <b className="bg-danger text-white p-1">On Sale!</b>
+                ) : (
+                  ""
+                )}
+              </b>
+              <b>${item.price}</b>
             </div>
-          ))}
-        </div>
-     </div>
+          );
+        })}
+      </div>
+    </div>
   );
 }
-
